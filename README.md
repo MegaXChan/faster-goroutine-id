@@ -164,14 +164,5 @@ MegaXChan
 - [go-id](https://github.com/MegaXChan/go-id): Traditional goroutine ID acquisition library
 - [goid](https://github.com/petermattis/goid): Another goroutine ID implementation
 
-## Changelog
-
-### v0.0.2 (2026-03-04)
-- Initial release
-- Multi-platform and multi-architecture support
-- Dynamic offset calibration implementation
-- Performance tests and examples provided
-
----
 
 **Tip**: If you encounter any issues, please check [Issues](https://github.com/MegaXChan/faster-goroutine-id/issues) first or create a new issue.

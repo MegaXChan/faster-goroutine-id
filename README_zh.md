@@ -165,14 +165,5 @@ MegaXChan
 - [go-id](https://github.com/MegaXChan/go-id): 传统的goroutine ID获取库
 - [goid](https://github.com/petermattis/goid): 另一个goroutine ID获取实现
 
-## 更新日志
-
-### v0.0.2 (2026-03-04)
-- 初始版本发布
-- 支持多平台多架构
-- 实现动态offset校准
-- 提供性能测试和示例
-
----
 
 **提示**: 如果在使用中遇到问题，请先查看[Issues](https://github.com/MegaXChan/faster-goroutine-id/issues)或创建新的Issue。

@@ -50,10 +50,11 @@ func calibrateOffset() {
 
 	// 在多个 goroutine 中验证 offset 的准确性
 	const numGoroutines = 10
-	results := make(chan bool, numGoroutines)
-
+	wait := sync.WaitGroup{}
 	for i := 0; i < numGoroutines; i++ {
+		wait.Add(1)
 		go func() {
+			defer wait.Done()
 			off := uintptr(0)
 			for {
 				off = findOffsetInitial(off)
@@ -67,20 +68,9 @@ func calibrateOffset() {
 				}
 				off++
 			}
-
-			// 比较结果
-			results <- (off > 0)
 		}()
 	}
-
-	// 收集结果
-	correctCount := 0
-	for i := 0; i < numGoroutines; i++ {
-		if <-results {
-			correctCount++
-		}
-	}
-
+	wait.Wait()
 	frequent, i := mostFrequent(successOffs)
 	if i > numGoroutines/2 {
 		offset = frequent
@@ -112,6 +102,11 @@ func findOffsetInitial(offset uintptr) uintptr {
 			//	fmt.Printf("recover is %v", r)
 			//}
 		}()
+		align := unsafe.Alignof(int64(0))
+		// 对齐检查
+		if addr%uintptr(align) != 0 {
+			return 0, false
+		}
 		return *(*int64)(unsafe.Pointer(addr)), true
 	}
 

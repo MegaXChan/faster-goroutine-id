@@ -1,7 +1,6 @@
 package faster_goroutine_id
 
 import (
-	"fmt"
 	"sync"
 	"unsafe"
 
@@ -18,7 +17,7 @@ func init() {
 	if offset == 0 {
 		panic("can not get offset")
 	}
-	fmt.Printf("offset is %d\n", offset)
+	//fmt.Printf("offset is %d\n", offset)
 }
 
 func mostFrequent(nums []uintptr) (uintptr, int) {
@@ -99,7 +98,7 @@ func findOffsetInitial(offset uintptr) uintptr {
 	}
 
 	base := uintptr(gp)
-	fmt.Printf("base is %d\n", base)
+	//fmt.Printf("base is %d\n", base)
 
 	// 在 g 结构体附近搜索 goroutine ID
 	// 使用已知的 offset 范围进行搜索
@@ -108,10 +107,10 @@ func findOffsetInitial(offset uintptr) uintptr {
 	// 定义一个安全读取内存的函数
 	readSafe := func(addr uintptr) (int64, bool) {
 		defer func() {
-			r := recover() // 忽略 panic
-			if r != nil {
-				fmt.Printf("recover is %v", r)
-			}
+			recover() // 忽略 panic
+			//if r != nil {
+			//	fmt.Printf("recover is %v", r)
+			//}
 		}()
 		return *(*int64)(unsafe.Pointer(addr)), true
 	}
@@ -119,7 +118,7 @@ func findOffsetInitial(offset uintptr) uintptr {
 	for off := offset; off < searchRange; off += 1 {
 		addr := base + off
 		if id, ok := readSafe(addr); ok && id == expectedID {
-			fmt.Printf("id is %d off is %v\n", id, off)
+			//fmt.Printf("id is %d off is %v\n", id, off)
 			return off
 		}
 	}

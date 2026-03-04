@@ -166,7 +166,7 @@ MegaXChan
 
 ## Changelog
 
-### v0.0.1 (2026-03-04)
+### v0.0.2 (2026-03-04)
 - Initial release
 - Multi-platform and multi-architecture support
 - Dynamic offset calibration implementation
